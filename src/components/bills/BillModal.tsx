@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { X } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { COMMON_BILL_NAMES, type Bill, type BillRecurrence } from '../../types';
 
 interface BillModalProps {
@@ -18,6 +19,8 @@ export default function BillModal({ open, onClose, onSave, initial }: BillModalP
   const [recurrence, setRecurrence] = useState<BillRecurrence>(initial?.recurrence ?? 'monthly');
   const [status, setStatus] = useState<'paid' | 'unpaid'>(initial?.status ?? 'unpaid');
   const [saving, setSaving] = useState(false);
+
+  useBodyScrollLock(open);
 
   if (!open) return null;
 

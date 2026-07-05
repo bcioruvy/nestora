@@ -36,7 +36,7 @@ export default function MobileNav() {
             key={to}
             to={to}
             end={end}
-            className={({ isActive }) =>
+            className={({ isActive }: { isActive: boolean }) =>
               `flex flex-col items-center gap-1 rounded-xl px-3 py-1.5 text-[11px] font-medium ${
                 isActive ? 'text-moss' : 'text-ink-muted'
               }`

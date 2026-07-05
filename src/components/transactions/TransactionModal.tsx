@@ -2,6 +2,7 @@ import { useState, type FormEvent, useEffect } from 'react';
 import { X } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import {
   INCOME_CATEGORIES,
   EXPENSE_CATEGORIES,
@@ -42,6 +43,8 @@ export default function TransactionModal({
     }
     // eslint-disable-next-line
   }, [type]);
+
+  useBodyScrollLock(open);
 
   if (!open) return null;
 

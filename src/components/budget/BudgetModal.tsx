@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { X } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { EXPENSE_CATEGORIES, type BudgetConfig } from '../../types';
 
 interface BudgetModalProps {
@@ -19,6 +20,8 @@ export default function BudgetModal({ open, onClose, onSave, initial }: BudgetMo
     ),
   );
   const [saving, setSaving] = useState(false);
+
+  useBodyScrollLock(open);
 
   if (!open) return null;
 

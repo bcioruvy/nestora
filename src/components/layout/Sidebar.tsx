@@ -38,7 +38,7 @@ export default function Sidebar({ onSearchClick }: SidebarProps) {
 
   return (
     <aside
-      className={`no-print hidden md:flex flex-col shrink-0 border-r border-border bg-surface transition-all duration-200 ${
+      className={`no-print sticky top-0 hidden h-screen shrink-0 flex-col overflow-y-auto border-r border-border bg-surface transition-all duration-200 md:flex ${
         collapsed ? 'w-20' : 'w-64'
       }`}
     >
@@ -67,7 +67,7 @@ export default function Sidebar({ onSearchClick }: SidebarProps) {
             key={to}
             to={to}
             end={end}
-            className={({ isActive }) =>
+            className={({ isActive }: { isActive: boolean }) =>
               `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                 isActive ? 'bg-moss-soft text-moss' : 'text-ink-muted hover:bg-moss-soft/60 hover:text-ink'
               }`

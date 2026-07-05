@@ -115,38 +115,40 @@ export default function Settings() {
       : undefined;
 
   return (
-    <div className="max-w-xl space-y-6">
+    <div className="max-w-4xl space-y-6">
       <h1 className="no-print font-display text-2xl font-semibold text-ink">Settings</h1>
 
-      <Card className="no-print">
-        <h2 className="mb-4 font-display text-lg font-semibold text-ink">Profile</h2>
-        <div className="space-y-3 text-sm">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <span className="text-ink-muted">Name</span>
-            <span className="font-medium text-ink">{user?.displayName || '—'}</span>
+      <div className="no-print grid grid-cols-1 gap-6 md:grid-cols-2">
+        <Card>
+          <h2 className="mb-4 font-display text-lg font-semibold text-ink">Profile</h2>
+          <div className="space-y-3 text-sm">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <span className="text-ink-muted">Name</span>
+              <span className="font-medium text-ink">{user?.displayName || '—'}</span>
+            </div>
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <span className="text-ink-muted">Email</span>
+              <span className="font-medium text-ink">{user?.email}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-ink-muted">Currency</span>
+              <span className="font-medium text-ink">PKR</span>
+            </div>
           </div>
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <span className="text-ink-muted">Email</span>
-            <span className="font-medium text-ink">{user?.email}</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-ink-muted">Currency</span>
-            <span className="font-medium text-ink">PKR</span>
-          </div>
-        </div>
-      </Card>
+        </Card>
 
-      <Card className="no-print">
-        <h2 className="mb-2 font-display text-lg font-semibold text-ink">Password</h2>
-        <p className="mb-4 text-sm text-ink-muted">We&apos;ll email you a link to set a new password.</p>
-        {sent ? (
-          <p className="text-sm text-moss">Reset link sent to {user?.email}.</p>
-        ) : (
-          <Button variant="secondary" onClick={handlePasswordReset}>
-            Send reset email
-          </Button>
-        )}
-      </Card>
+        <Card>
+          <h2 className="mb-2 font-display text-lg font-semibold text-ink">Password</h2>
+          <p className="mb-4 text-sm text-ink-muted">We&apos;ll email you a link to set a new password.</p>
+          {sent ? (
+            <p className="text-sm text-moss">Reset link sent to {user?.email}.</p>
+          ) : (
+            <Button variant="secondary" onClick={handlePasswordReset}>
+              Send reset email
+            </Button>
+          )}
+        </Card>
+      </div>
 
       <Card className="no-print">
         <h2 className="mb-1 font-display text-lg font-semibold text-ink">Reports &amp; export</h2>

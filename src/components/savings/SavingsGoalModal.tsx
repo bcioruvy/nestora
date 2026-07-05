@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { X } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { SAVINGS_GOAL_SUGGESTIONS, type SavingsGoal } from '../../types';
 
 interface SavingsGoalModalProps {
@@ -17,6 +18,8 @@ export default function SavingsGoalModal({ open, onClose, onSave, initial }: Sav
   const [savedAmount, setSavedAmount] = useState(initial ? String(initial.savedAmount) : '0');
   const [deadline, setDeadline] = useState(initial?.deadline ?? '');
   const [saving, setSaving] = useState(false);
+
+  useBodyScrollLock(open);
 
   if (!open) return null;
 

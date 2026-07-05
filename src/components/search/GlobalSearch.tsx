@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { Search, X, ArrowLeftRight, Receipt } from 'lucide-react';
 import { useTransactions } from '../../hooks/useTransactions';
 import { useBills } from '../../hooks/useBills';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { formatCurrency } from '../../lib/format';
 
 interface GlobalSearchProps {
@@ -15,6 +16,8 @@ export default function GlobalSearch({ open, onClose }: GlobalSearchProps) {
   const { bills } = useBills();
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
+
+  useBodyScrollLock(open);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();

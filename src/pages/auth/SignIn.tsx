@@ -33,8 +33,11 @@ export default function SignIn() {
     setError('');
     try {
       await signInWithGoogle();
-    } catch {
-      setError('Google sign-in failed. Try again.');
+    } catch (err) {
+      const code = err instanceof Error && 'code' in err ? String((err as { code?: string }).code) : '';
+      setError(code === 'auth/unauthorized-domain'
+        ? "This domain isn't authorized in Firebase yet (Authentication → Settings → Authorized domains)."
+        : `Google sign-in failed${code ? ` (${code})` : ''}. Try again.`);
     }
   }
 
