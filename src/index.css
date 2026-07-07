@@ -108,6 +108,15 @@ body {
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* iOS Safari auto-zooms the viewport when focusing any input under 16px,
+   which visibly shifts fixed-position modals. Force 16px regardless of
+   whatever text-size utility a component applies. */
+input,
+select,
+textarea {
+  font-size: 16px !important;
+}
+
 #root {
   min-height: 100vh;
 }
