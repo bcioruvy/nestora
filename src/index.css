@@ -17,17 +17,17 @@
 }
 
 .dark {
-  --canvas: #1C1A17;
-  --surface: #242018;
-  --ink: #F3EFE6;
-  --ink-muted: #A79E8E;
-  --border: #34302A;
-  --moss: #6FAE85;
-  --moss-soft: #24352B;
-  --brass: #D9A84E;
-  --brass-soft: #3A2F1C;
-  --clay: #D6816D;
-  --clay-soft: #3A2620;
+  --canvas: #0F1512;
+  --surface: #161D19;
+  --ink: #F5F7F5;
+  --ink-muted: #8B958F;
+  --border: #28322C;
+  --moss: #3FAE73;
+  --moss-soft: #1A2E22;
+  --brass: #D6A354;
+  --brass-soft: #332711;
+  --clay: #D97B62;
+  --clay-soft: #33201A;
 }
 
 @theme {
