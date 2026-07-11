@@ -34,6 +34,7 @@ export default function TransactionModal({
   const [notes, setNotes] = useState(initial?.notes ?? '');
   const [tags, setTags] = useState(initial?.tags?.join(', ') ?? '');
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   const categories = type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES;
 
@@ -51,6 +52,7 @@ export default function TransactionModal({
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!amount || Number(amount) <= 0) return;
+    setError('');
     setSaving(true);
     try {
       await onSave({
@@ -66,6 +68,9 @@ export default function TransactionModal({
           .filter(Boolean),
       });
       onClose();
+    } catch (err) {
+      console.error('Failed to save transaction', err);
+      setError(err instanceof Error ? err.message : 'Could not save. Try again.');
     } finally {
       setSaving(false);
     }
@@ -174,7 +179,7 @@ export default function TransactionModal({
             onChange={(e) => setTags(e.target.value)}
             placeholder="e.g. household, urgent"
           />
-
+   {error && <p className="text-sm text-clay">{error}</p>}
           <div className="flex gap-3 pt-2">
             <Button type="button" variant="secondary" className="flex-1" onClick={onClose}>
               Cancel
