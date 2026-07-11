@@ -20,6 +20,7 @@ export default function BudgetModal({ open, onClose, onSave, initial }: BudgetMo
     ),
   );
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useBodyScrollLock(open);
 
@@ -29,8 +30,9 @@ export default function BudgetModal({ open, onClose, onSave, initial }: BudgetMo
     setCategoryAmounts((prev) => ({ ...prev, [cat]: value }));
   }
 
-  async function handleSubmit(e: FormEvent) {
+async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setError('');
     setSaving(true);
     try {
       const parsedCategories: Record<string, number> = {};
@@ -39,10 +41,14 @@ export default function BudgetModal({ open, onClose, onSave, initial }: BudgetMo
       }
       await onSave({ overallAmount: Number(overallAmount) || 0, categoryAmounts: parsedCategories });
       onClose();
+    } catch (err) {
+      console.error('Failed to save budget', err);
+      setError(err instanceof Error ? err.message : 'Could not save. Try again.');
     } finally {
       setSaving(false);
     }
   }
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center">
@@ -87,6 +93,7 @@ export default function BudgetModal({ open, onClose, onSave, initial }: BudgetMo
             </div>
           </div>
 
+    {error && <p className="text-sm text-clay">{error}</p>}
           <div className="flex gap-3 pt-2">
             <Button type="button" variant="secondary" className="flex-1" onClick={onClose}>
               Cancel
