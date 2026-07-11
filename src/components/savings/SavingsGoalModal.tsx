@@ -18,14 +18,16 @@ export default function SavingsGoalModal({ open, onClose, onSave, initial }: Sav
   const [savedAmount, setSavedAmount] = useState(initial ? String(initial.savedAmount) : '0');
   const [deadline, setDeadline] = useState(initial?.deadline ?? '');
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useBodyScrollLock(open);
 
   if (!open) return null;
 
-  async function handleSubmit(e: FormEvent) {
+async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!name.trim() || !targetAmount || Number(targetAmount) <= 0) return;
+    setError('');
     setSaving(true);
     try {
       await onSave({
@@ -35,6 +37,9 @@ export default function SavingsGoalModal({ open, onClose, onSave, initial }: Sav
         deadline: deadline || undefined,
       });
       onClose();
+    } catch (err) {
+      console.error('Failed to save goal', err);
+      setError(err instanceof Error ? err.message : 'Could not save. Try again.');
     } finally {
       setSaving(false);
     }
@@ -102,6 +107,8 @@ export default function SavingsGoalModal({ open, onClose, onSave, initial }: Sav
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
           />
+
+    {error && <p className="text-sm text-clay">{error}</p>}
 
           <div className="flex gap-3 pt-2">
             <Button type="button" variant="secondary" className="flex-1" onClick={onClose}>
