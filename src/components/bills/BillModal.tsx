@@ -17,8 +17,9 @@ export default function BillModal({ open, onClose, onSave, initial }: BillModalP
   const [amount, setAmount] = useState(initial ? String(initial.amount) : '');
   const [dueDate, setDueDate] = useState(initial?.dueDate ?? new Date().toISOString().slice(0, 10));
   const [recurrence, setRecurrence] = useState<BillRecurrence>(initial?.recurrence ?? 'monthly');
-  const [status, setStatus] = useState<'paid' | 'unpaid'>(initial?.status ?? 'unpaid');
+  const [status, setStatus] = useState<'paid' | 'unpaid'>(initial?.status ?? 'unpaid'); 
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useBodyScrollLock(open);
 
@@ -27,10 +28,14 @@ export default function BillModal({ open, onClose, onSave, initial }: BillModalP
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!name.trim() || !amount || Number(amount) <= 0) return;
+    setError('');
     setSaving(true);
     try {
       await onSave({ name: name.trim(), amount: Number(amount), dueDate, recurrence, status });
       onClose();
+    } catch (err) {
+      console.error('Failed to save bill', err);
+      setError(err instanceof Error ? err.message : 'Could not save. Try again.');
     } finally {
       setSaving(false);
     }
@@ -122,7 +127,9 @@ export default function BillModal({ open, onClose, onSave, initial }: BillModalP
             </button>
           </div>
 
-          <div className="flex gap-3 pt-2">
+                    
+     {error && <p className="text-sm text-clay">{error}</p>}
+            <div className="flex gap-3 pt-2">
             <Button type="button" variant="secondary" className="flex-1" onClick={onClose}>
               Cancel
             </Button>
