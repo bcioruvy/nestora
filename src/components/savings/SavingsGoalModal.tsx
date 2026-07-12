@@ -34,7 +34,7 @@ async function handleSubmit(e: FormEvent) {
         name: name.trim(),
         targetAmount: Number(targetAmount),
         savedAmount: Number(savedAmount) || 0,
-        deadline: deadline || undefined,
+        ...(deadline ? { deadline } : {}),
       });
       onClose();
     } catch (err) {
