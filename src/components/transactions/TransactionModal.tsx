@@ -61,7 +61,7 @@ export default function TransactionModal({
         category: category || categories[0],
         date,
         paymentMethod,
-        notes: notes.trim() || undefined,
+        ...(notes.trim() ? { notes: notes.trim() } : {}),
         tags: tags
           .split(',')
           .map((t) => t.trim())
