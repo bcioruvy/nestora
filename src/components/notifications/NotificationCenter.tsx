@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { Bell, AlertTriangle, Info } from 'lucide-react';
 import { useNotifications } from '../../hooks/useNotifications';
 
-export default function NotificationCenter() {
+interface NotificationCenterProps {
+  align?: 'left' | 'right';
+}
+
+export default function NotificationCenter({ align = 'right' }: NotificationCenterProps) {
   const { notifications } = useNotifications();
   const [open, setOpen] = useState(false);
   const warningCount = notifications.filter((n) => n.severity === 'warning').length;
@@ -29,7 +33,11 @@ export default function NotificationCenter() {
       {open && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-          <div className="animate-modal-in absolute right-0 z-50 mt-2 w-80 max-w-[85vw] rounded-2xl border border-border bg-surface p-2 shadow-xl">
+          <div
+            className={`animate-modal-in absolute z-50 mt-2 w-80 max-w-[85vw] rounded-2xl border border-border bg-surface p-2 shadow-xl ${
+              align === 'left' ? 'left-0' : 'right-0'
+            }`}
+          >
             <p className="px-3 py-2 text-xs font-medium uppercase tracking-wider text-ink-muted">Notifications</p>
             {notifications.length === 0 ? (
               <p className="px-3 py-6 text-center text-sm text-ink-muted">You&apos;re all caught up.</p>
