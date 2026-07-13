@@ -57,7 +57,7 @@ export default function Sidebar({ onSearchClick }: SidebarProps) {
           >
             <Search size={16} /> Search
           </button>
-          <NotificationCenter />
+          <NotificationCenter align="left" />
         </div>
       )}
 
