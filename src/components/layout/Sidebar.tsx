@@ -38,7 +38,7 @@ export default function Sidebar({ onSearchClick }: SidebarProps) {
 
   return (
     <aside
-      className={`no-print sticky top-0 hidden h-screen shrink-0 flex-col overflow-y-auto border-r border-border bg-surface transition-all duration-200 md:flex ${
+            className={`no-print sticky top-0 hidden h-screen shrink-0 flex-col border-r border-border bg-surface transition-all duration-200 md:flex ${
         collapsed ? 'w-20' : 'w-64'
       }`}
     >
